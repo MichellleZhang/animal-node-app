@@ -29,4 +29,3 @@ export const findPetByRequie = async (type, zipcode) => {
 //   }
 // };
 
-

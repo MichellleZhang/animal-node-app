@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const petSchema = new mongoose.Schema({
+
     type: String,
     name: String,
     image: String,
@@ -12,7 +13,8 @@ const petSchema = new mongoose.Schema({
     address: String,
     zipcode: Number,
     date: String,
-    phone: String
+    phone: String,
+    age: String
 }, {collection: 'pets'});
 
 export default petSchema;

@@ -5,6 +5,8 @@ import AuthController from "./users/auth-controller.js";
 import AdminController from "./users/adimin-controller.js"
 import UserController from "./users/user-controller.js"
 mongoose.connect("mongodb+srv://michelle:tNATCJEli8lIiVM0@cluster0.qf0h9th.mongodb.net/PetSOS?retryWrites=true&w=majority");
+import PetsController from "./pets/pets-controller.js";
+
 const app = express();
 app.use(session({
     secret:"any string",
@@ -29,4 +31,5 @@ app.use(express.json())
 AuthController(app)
 AdminController(app)
 UserController(app)
+PetsController(app)
 app.listen(4000);
