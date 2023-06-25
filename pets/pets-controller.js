@@ -19,3 +19,4 @@ export default (app) => {
     app.get('/api/pets/:id', findPetById);
     app.get('/api/pets', findAllPets);
 }
+

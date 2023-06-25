@@ -8,6 +8,8 @@ import PetController from "./pets/pets-controller.js"
 import MypetController from "./myPets/mypet-controller.js"
 
 mongoose.connect("mongodb+srv://michelle:tNATCJEli8lIiVM0@cluster0.qf0h9th.mongodb.net/PetSOS?retryWrites=true&w=majority");
+import PetsController from "./pets/pets-controller.js";
+
 const app = express();
 
 app.use(express.json({ limit: "10mb" }));
@@ -38,6 +40,10 @@ app.use(express.json())
 AuthController(app)
 AdminController(app)
 UserController(app)
+<<<<<<< HEAD
 PetController(app)
 MypetController(app)
+=======
+PetsController(app)
+>>>>>>> origin/main
 app.listen(4000);

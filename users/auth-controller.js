@@ -20,6 +20,7 @@ const AuthController = (app) => {
     res.json(newUser);
   };
 
+
   const login = async (req, res) => {
     const account = req.body.account;
     const password = req.body.password;
