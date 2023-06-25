@@ -14,7 +14,10 @@ const petSchema = new mongoose.Schema({
     zipcode: Number,
     date: String,
     phone: String,
-    age: String
+    age: String,
+    externalId: String,
+    likes: {type:Number, default:0},
 }, {collection: 'pets'});
 
-export default petSchema;
+const petsModel = mongoose.model('pets', petSchema);
+export default petsModel;

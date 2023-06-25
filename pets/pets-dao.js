@@ -1,7 +1,10 @@
-import petsModel from './pets-model.js';
+import petsModel from './pets-schema.js';
 
 export const findPetById = (uid) =>  petsModel.findById(uid);
 //export const findPetByRequie = (type, location) => petsModel.find( { 'Type': type, 'Zipcode': location } );
+
+export const findPetByExternalId = (externalId) =>  petsModel.findOne({externalId});
+
 export const findPetByRequie = async (type, zipcode) => {
     console.log("getting zipcode")
     console.log(zipcode);
@@ -15,6 +18,9 @@ export const findPetByRequie = async (type, zipcode) => {
       throw error;
     });
 };
+
+export const createPet = (pet) => petsModel.create(pet);
+
 // export const findPetByRequie = async (type) => {
 //   try {
 //     console.log("I am in the pets dao");

@@ -6,7 +6,7 @@ import AdminController from "./users/adimin-controller.js"
 import UserController from "./users/user-controller.js"
 import PetController from "./pets/pets-controller.js"
 import MypetController from "./myPets/mypet-controller.js"
-
+import LikeController from "./pets/like-controller.js";
 mongoose.connect("mongodb+srv://michelle:tNATCJEli8lIiVM0@cluster0.qf0h9th.mongodb.net/PetSOS?retryWrites=true&w=majority");
 import PetsController from "./pets/pets-controller.js";
 
@@ -32,6 +32,9 @@ app.use((req, res, next) => {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, PATCH, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
+    if (req.method === "OPTIONS") {
+        return res.status(200).end();
+    }
     next();
 });
 app.use(express.json())
@@ -42,4 +45,6 @@ AdminController(app)
 UserController(app)
 PetController(app)
 MypetController(app)
+PetsController(app)
+LikeController(app)
 app.listen(4000);
