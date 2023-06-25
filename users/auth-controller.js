@@ -46,7 +46,7 @@ const AuthController = (app) => {
       req.app.locals.userInfo = user;
       return res.json(user);
     }
-    return res.status(401).send({message:"Incorrect username or password"});
+    return res.json({code:"400",message:"Incorrect username or password"});
     // return res.status(401).send({ error: 'Something failed!' });
   };
 

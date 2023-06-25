@@ -40,10 +40,6 @@ app.use(express.json())
 AuthController(app)
 AdminController(app)
 UserController(app)
-<<<<<<< HEAD
 PetController(app)
 MypetController(app)
-=======
-PetsController(app)
->>>>>>> origin/main
 app.listen(4000);

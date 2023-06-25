@@ -14,18 +14,24 @@ const MypetController = (app) => {
         }
     };
 
-    const findMypetsICreate = async (req, res) => {
-        console.log("start findMypetsICreate")
-        // const userId = currentUserVar._id;
+    const findMypetsICreated = async (req, res) => {
+        // debugger
+        console.log("11111111111")
+        // console.log("start findMypetsICreate")
+        const userId = currentUserVar._id;
         console.log("userIdddddd",userId)
-        // const results = await mypetDao.findCreatesForUser(userId);
+        const results = await mypetDao.findCreatesForUser(userId);
         console.log("resultsssssss",results)
-        // const  mypetsRecords= results.map((result) => result.mypets);
-        // res.json(mypetsRecords);
+        const  mypetsRecords= results.map((result) => result.mypets);
+        // res.json(mypesRecords);
+        res.json("abbbbbbb");
+        // res.json({ success: "200" });
     }
-
+    
     app.post("/api/pets/create", createMypets);
-    app.get("/api/pets/myallMypets", findMypetsICreate);
+    // app.get("/api/pets/myallMypets", findMypetsICreate);
+    app.get("/api/pets/myallMypets1", findMypetsICreated);
+
 }
 
 export default MypetController;
