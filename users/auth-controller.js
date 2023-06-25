@@ -1,6 +1,6 @@
 import * as usersDao from "./users-Dao.js";
 
-let currentUserVar;
+export let currentUserVar;
 
 const AuthController = (app) => {
   const register = async (req, res) => {
@@ -15,6 +15,7 @@ const AuthController = (app) => {
       return res.status(409).json({ message: "The user already exists" });
     }
     const newUser = await usersDao.createUser(req.body);
+    req.session["currentUser"] = newUser;
     currentUserVar = newUser;
     res.json(newUser);
   };
@@ -29,6 +30,7 @@ const AuthController = (app) => {
 
     let user = await usersDao.findUserByUsernamePassword(account, password);
     if (user) {
+      req.session["currentUser"] = user;
       currentUserVar = user;
       req.session.flag = 1;
       req.app.locals.userInfo = user;
@@ -37,13 +39,14 @@ const AuthController = (app) => {
 
     user = await usersDao.findUserByEmailPassword(account, password);
     if (user) {
+      req.session["currentUser"] = user;
       currentUserVar = user;
       req.session.flag = 1;
       req.app.locals.userInfo = user;
       return res.json(user);
     }
-
-    return res.status(401).json({ message: "Incorrect username or password" });
+    return res.status(401).send({message:"Incorrect username or password"});
+    // return res.status(401).send({ error: 'Something failed!' });
   };
 
   const logout = (req, res) => {

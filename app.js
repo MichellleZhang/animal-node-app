@@ -4,13 +4,22 @@ import session from "express-session";
 import AuthController from "./users/auth-controller.js";
 import AdminController from "./users/adimin-controller.js"
 import UserController from "./users/user-controller.js"
+import PetController from "./pets/pets-controller.js"
+import MypetController from "./myPets/mypet-controller.js"
+
 mongoose.connect("mongodb+srv://michelle:tNATCJEli8lIiVM0@cluster0.qf0h9th.mongodb.net/PetSOS?retryWrites=true&w=majority");
 const app = express();
+
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }))
+
 app.use(session({
     secret:"any string",
     resave:false,
     saveUninitialized: false,
+    store: new session.MemoryStore(),
 }))
+
 //remote client server needs to be added later
 app.use((req, res, next) => {
     const allowedOrigins = ["http://localhost:3000"];
@@ -29,4 +38,6 @@ app.use(express.json())
 AuthController(app)
 AdminController(app)
 UserController(app)
+PetController(app)
+MypetController(app)
 app.listen(4000);
