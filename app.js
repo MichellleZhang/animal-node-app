@@ -7,6 +7,8 @@ import UserController from "./users/user-controller.js"
 import PetsController from "./pets/pets-controller.js"
 import MypetController from "./myPets/mypet-controller.js"
 import LostPetController from './lostpet/controller.js';
+import LikeController from "./pets/like-controller.js";
+
 import multer from 'multer';
 
 mongoose.connect("mongodb+srv://michelle:tNATCJEli8lIiVM0@cluster0.qf0h9th.mongodb.net/PetSOS?retryWrites=true&w=majority");
@@ -53,4 +55,5 @@ UserController(app)
 PetsController(app)
 MypetController(app)
 LostPetController(app)
+LikeController(app)
 app.listen(4000);

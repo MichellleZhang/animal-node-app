@@ -40,9 +40,14 @@ export const likePet = async (req, res) => {
 }
 
 export const unlikePet = async (req, res) => {
-    const {userId, petId} = req.body;
+    let {userId, petId} = req.body;
     try {
-        const result = await likeDao.unlikePet(userId, petId);
+        let convertedPetId = petId;
+        if (!mongoose.Types.ObjectId.isValid(petId)) {
+            const pet = await petDao.findPetByExternalId(petId);
+            convertedPetId = pet._id;
+        }
+        const result = await likeDao.unlikePet(userId, convertedPetId);
         res.json(result);
     } catch (error) {
         res.status(500).send(error);
@@ -68,9 +73,32 @@ export const getAllLikedPets = async (req, res) => {
     }
 }
 
+export const checkIfUserLikedPet = async (req, res) => {
+    let { userId, role, petId } = req.params;
+    try {
+        let convertedPetId = petId;
+        if (!mongoose.Types.ObjectId.isValid(petId)) {
+            const pet = await petDao.findPetByExternalId(petId);
+            if (!pet) {
+                return res.json({ liked: false });
+            }
+            convertedPetId = pet._id;
+        }
+        const like = await likeDao.findLikeByUserAndPet(userId, role, convertedPetId);
+        if (like) {
+            res.json({ liked: true });
+        } else {
+            res.json({ liked: false });
+        }
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
 export default (app) => {
     app.post('/api/like/likePet', likePet);
     app.delete('/api/like/unlikePet', unlikePet);
     app.get('/api/like/all', getAllLikedPets);
     app.get('/api/like/:userId', getLikedPetsByUser);
+    app.get('/api/like/:userId/:role/:petId', checkIfUserLikedPet)
 }

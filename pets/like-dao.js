@@ -29,3 +29,8 @@ export const findAllLikedPets = async () => {
     return LikeModel.find({});
 }
 
+export const findLikeByUserAndPet = (userId, role, petId) => {
+    return LikeModel.findOne({ userId, role, petId }).exec();
+}
+
+

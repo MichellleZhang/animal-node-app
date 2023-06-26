@@ -54,6 +54,10 @@ const LostPetController = (app) => {
          res.json({ success: false ,error:e})
       }
    })
+
+   app.get("/api/petlost/getUserIdByPetId", async (req, res) =>{
+
+   })
 }
 
 export default LostPetController;
