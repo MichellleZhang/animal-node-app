@@ -14,24 +14,37 @@ const MypetController = (app) => {
         }
     };
 
-    const findMypetsICreated = async (req, res) => {
-        // debugger
-        console.log("11111111111")
-        // console.log("start findMypetsICreate")
-        const userId = currentUserVar._id;
-        console.log("userIdddddd",userId)
-        const results = await mypetDao.findCreatesForUser(userId);
-        console.log("resultsssssss",results)
-        const  mypetsRecords= results.map((result) => result.mypets);
-        // res.json(mypesRecords);
-        res.json("abbbbbbb");
-        // res.json({ success: "200" });
-    }
-    
-    app.post("/api/pets/create", createMypets);
-    // app.get("/api/pets/myallMypets", findMypetsICreate);
-    app.get("/api/pets/myallMypets1", findMypetsICreated);
+    const findMypetss = async (req, res) => {
+        if (currentUserVar) {
+            const userId = currentUserVar._id;
+            const results = await mypetDao.findCreatesForUser(userId);
+            const mypetsRecords = results.map((result) => result.mypets);
+            res.json(mypetsRecords);
+        } else {
+            res.status(401).json({ error: "Unauthorized" });
+        }
+    };
 
+    const deleteMypets = async (req, res) => {
+        const id = req.params.id;
+        console.log("idddd here", id)
+        await mypetDao.deleteMypets(id);
+        res.sendStatus(200);
+    };
+
+    const findVisitedpetss = async (req, res) => {
+            const userId = req.params.id;
+            console.log("user id for current progile", userId)
+            const results = await mypetDao.findCreatesForUser(userId);
+            const mypetsRecords = results.map((result) => result.mypets);
+            res.json(mypetsRecords);
+    };
+
+    app.post("/api/pets/create", createMypets);
+    app.delete("/api/petss/:id", deleteMypets);
+    // app.get("/api/pets/myallMypets", findMypetss);
+    app.get("/api/petss/myallMypets", findMypetss);
+    app.get("/api/petss/:id", findVisitedpetss);
 }
 
 export default MypetController;

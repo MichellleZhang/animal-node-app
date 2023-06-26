@@ -8,8 +8,10 @@ export const findMypetsByMypetsId = (myPetsId) => MyPetsModel.findOne({ myPetsId
 export const findCreatesForUser = (userId) =>CreateModel.find({ creator: userId }).populate("mypets").exec();
 
 export const deleteMypets = async (id) => {
-    CreateModel.deleteOne({ mypets: id });
-    MyPetsModel.deleteOne({ _id: id })}
+    console.log("deletingggg",id)
+    await CreateModel.deleteOne({ mypets: id });
+    await MyPetsModel.deleteOne({ _id: id })}
+
 export const createMypets = async (mypet, ownerID) => {
     mypet.owners = ownerID;
     try {
