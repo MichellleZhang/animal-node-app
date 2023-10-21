@@ -64,6 +64,17 @@ export const getLikedPetsByUser = async (req, res) => {
     }
 }
 
+
+export const getUserLikeByPets = async (req, res) => {
+    const {petId} = req.params;
+    try {
+        const result = await likeDao.getUserLikesByPets(petId);
+        res.json(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
 export const getAllLikedPets = async (req, res) => {
     try {
         const results = await likeDao.findAllLikedPets();
@@ -99,6 +110,7 @@ export default (app) => {
     app.post('/api/like/likePet', likePet);
     app.delete('/api/like/unlikePet', unlikePet);
     app.get('/api/like/all', getAllLikedPets);
-    app.get('/api/like/:userId', getLikedPetsByUser);
+    app.get('/api/like/post/:userId', getLikedPetsByUser);
+    app.get('/api/like/creator/:petId', getUserLikeByPets);
     app.get('/api/like/:userId/:role/:petId', checkIfUserLikedPet)
 }

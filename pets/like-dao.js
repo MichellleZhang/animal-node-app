@@ -25,6 +25,10 @@ export const getLikedPetsByUser = (userId) => {
     return LikeModel.find({ userId }).populate('petId');
 }
 
+export const getUserLikesByPets = (petID) => {
+    return LikeModel.find({ petID }).populate('userId');
+}
+
 export const findAllLikedPets = async () => {
     return LikeModel.find({});
 }
