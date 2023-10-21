@@ -4,3 +4,6 @@ Here is the [front-end](https://github.com/MichellleZhang/animal-react-app.git) 
 
 # Getting Started with Create Node App
 nodemon app.js
+
+# Deployed in render.com
+https://tuiter-node-server-app-igy9.onrender.com
